@@ -7,9 +7,12 @@ class PagesController < ApplicationController
 
     html_file = HTTParty.get(url)
     html_doc = Nokogiri::HTML(html_file)
-    @jogos = html_doc.css('td')
-    #@jogos.each do |jogo|
-
-#    end
+    @times = []
+    @jogos = html_doc.css('tbody').text
+    @jogos.split.each do |jogo|
+      if jogo.length > 3 && jogo != "Sábado" && jogo != "Domingo"
+        @times << jogo
+      end
+    end
   end
 end
