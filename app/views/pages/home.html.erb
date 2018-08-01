@@ -4,7 +4,13 @@
       <thead>
         <tbody class="tbody">
           <tr>
-            <td> <%= @times[0] %> </td>
+            <td>
+              <% @odds_hash.each do | odd |%>
+                <% if odd.key?("GRÊMIO") %>
+                  <%= @times[0] %> (<%= odd["GRÊMIO"] %>%)
+                <% end %>
+              <% end %>
+            </td>
             <td> </td>
             <td> </td>
             <td> <%= @times[1] %> </td>
@@ -90,4 +96,6 @@
         </tbody>
       </thead>
     </table>
+    <%= @confrontos %>
+    <%console%>
 </div>
