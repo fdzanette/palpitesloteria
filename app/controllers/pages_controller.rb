@@ -85,6 +85,26 @@ class PagesController < ApplicationController
     @team_odds
   end
 
+  def generate_score
+    games = joined_stats_hash
+    @scores = []
+    games.each do |game|
+      a = 100 - game.values[0].to_i + game.values[1].to_i
+      if game.values[0].to_i > game.values[1].to_i * 2
+        @scores << "2 x 0"
+      elsif game.values[0].to_i + a < game.values[1].to_i
+        @scores <<  "0 x 2"
+      elsif game.values[0].to_i == game.values[1].to_i
+        @scores <<  "0 x 0"
+      elsif game.values[0].to_i > game.values[1].to_i
+        @scores << "1 x 0"
+      elsif game.values[0].to_i < game.values[1].to_i
+        @scores << "0 x 1"
+      end
+    end
+    @scores
+  end
+
   def home #busca os jogos do próximo premio da loteria esportiva.
     url = "http://loterias.caixa.gov.br/wps/portal/loterias/landing/loteca/programacao"
 
@@ -102,5 +122,6 @@ class PagesController < ApplicationController
     end
     joined_stats_hash
     each_team_odd
+    generate_score
   end
 end
