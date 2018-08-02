@@ -13,6 +13,8 @@ class PagesController < ApplicationController
         time.prepend("PONTE ")
       elsif time == "CORRÊA/MA"
         time.prepend("SAMPAIO ")
+      elsif time == "BRASIL/RS"
+        time.replace "BRASIL DE PELOTAS/RS"
       end
     end
     return times_array
@@ -26,9 +28,11 @@ class PagesController < ApplicationController
     confrontosA = pontos.each_slice(5).to_a
     @odds_hashA = []
     confrontosA.each do |confronto|
+      confronto[0].nil? ? team_key1 = confronto[0] : team_key1 = confronto[0].strip
+      confronto[4].nil? ? team_key2 = confronto[4] : team_key2 = confronto[4].strip
       @odds_hashA << {
-        confronto[0] => confronto[1],
-        confronto[4] => confronto[3]
+        team_key1 => confronto[1],
+        team_key2 => confronto[3]
       }
     end
     @odds_hashA
