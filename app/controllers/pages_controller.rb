@@ -85,22 +85,33 @@ class PagesController < ApplicationController
     @team_odds
   end
 
-  def generate_score
-    games = joined_stats_hash
+  def generate_score #gera placar conforme as probabilidades de vitória de cada time
+    all_odds = each_team_odd
+    games = []
+    all_odds.each do |odds|
+      if odds.length <= 5
+        games << odds
+      end
+    end
     @scores = []
+    i = 0
+    n = 1
     games.each do |game|
-      a = 100 - game.values[0].to_i + game.values[1].to_i
-      if game.values[0].to_i > game.values[1].to_i * 2
-        @scores << "2 x 0"
-      elsif game.values[0].to_i + a < game.values[1].to_i
-        @scores <<  "0 x 2"
-      elsif game.values[0].to_i == game.values[1].to_i
-        @scores <<  "0 x 0"
-      elsif game.values[0].to_i > game.values[1].to_i
+      #byebug
+      if game.length > 5
+        i += 2
+        n += 2
+        next
+      end
+      if games[i].to_f == 0.0 && games[n].to_f == 0.0
+        @scores << "- x -"
+      elsif games[i].to_f > games[n].to_f
         @scores << "1 x 0"
-      elsif game.values[0].to_i < game.values[1].to_i
+      elsif games[i].to_f < games[n].to_f
         @scores << "0 x 1"
       end
+      i += 2
+      n += 2
     end
     @scores
   end
