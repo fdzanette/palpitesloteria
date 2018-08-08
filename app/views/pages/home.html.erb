@@ -1,81 +1,94 @@
 <div class="container">
   <h2 class="text-center">Jogos Loteria Esportiva</h2>
-  <a href="#" class="btn-btn-info"> Gerar Palpites </a>
+   <a href="#" id="gerar"> Gerar Palpites </a>
     <table class="table">
       <thead>
         <tbody class="tbody">
           <tr>
             <td> <%= @team_odds[0] %> (<%= @team_odds[1] %>%) </td>
-            <td class="text-center"> <%= @scores[0] %> </td>
+            <td class="text-center hidden"> <%= @scores[0] %> </td>
             <td> <%= @team_odds[2] %> (<%= @team_odds[3] %>%) </td>
           </tr>
           <tr>
             <td> <%= @team_odds[4] %> (<%= @team_odds[5] %>%) </td>
-            <td class="text-center"> <%= @scores[1] %> </td>
+            <td class="text-center hidden"> <%= @scores[1] %> </td>
             <td> <%= @team_odds[6] %> (<%= @team_odds[7] %>%)</td>
           </tr>
           <tr>
             <td> <%= @team_odds[8] %> (<%= @team_odds[9] %>%) </td>
-            <td class="text-center"> <%= @scores[2] %> </td>
+            <td class="text-center hidden"> <%= @scores[2] %> </td>
             <td> <%= @team_odds[10] %> (<%= @team_odds[11] %>%) </td>
           </tr>
           <tr>
             <td> <%= @team_odds[12] %> (<%= @team_odds[13] %>%) </td>
-            <td class="text-center"> <%= @scores[3] %> </td>
+            <td class="text-center hidden"> <%= @scores[3] %> </td>
             <td> <%= @team_odds[14] %> (<%= @team_odds[15] %>%) </td>
           </tr>
           <tr>
             <td> <%= @team_odds[16] %> (<%= @team_odds[17] %>%) </td>
-            <td class="text-center"> <%= @scores[4] %> </td>
+            <td class="text-center hidden"> <%= @scores[4] %> </td>
             <td> <%= @team_odds[18] %> (<%= @team_odds[19] %>%) </td>
           </tr>
           <tr>
             <td> <%= @team_odds[20] %> (<%= @team_odds[21] %>%) </td>
-            <td class="text-center"> <%= @scores[5] %> </td>
+            <td class="text-center hidden"> <%= @scores[5] %> </td>
             <td> <%= @team_odds[22] %> (<%= @team_odds[23] %>%) </td>
           </tr>
           <tr>
             <td> <%= @team_odds[24] %> (<%= @team_odds[25] %>%) </td>
-            <td class="text-center"> <%= @scores[6] %> </td>
+            <td class="text-center hidden"> <%= @scores[6] %> </td>
             <td> <%= @team_odds[26] %> (<%= @team_odds[27] %>%) </td>
           </tr>
           <tr>
             <td> <%= @team_odds[28] %> (<%= @team_odds[29] %>%) </td>
-            <td class="text-center"> <%= @scores[7] %> </td>
+            <td class="text-center hidden"> <%= @scores[7] %> </td>
             <td> <%= @team_odds[30] %> (<%= @team_odds[31] %>%) </td>
           </tr>
           <tr>
             <td> <%= @team_odds[32] %> (<%= @team_odds[33] %>%) </td>
-            <td class="text-center"> <%= @scores[8] %> </td>
+            <td class="text-center hidden"> <%= @scores[8] %> </td>
             <td> <%= @team_odds[34] %> (<%= @team_odds[35] %>%) </td>
           </tr>
           <tr>
             <td> <%= @team_odds[36] %> (<%= @team_odds[37] %>%) </td>
-            <td class="text-center"> <%= @scores[9] %> </td>
+            <td class="text-center hidden"> <%= @scores[9] %> </td>
             <td> <%= @team_odds[38] %> (<%= @team_odds[39] %>%) </td>
           </tr>
           <tr>
             <td> <%= @team_odds[40] %> (<%= @team_odds[41] %>%) </td>
-            <td class="text-center"> <%= @scores[10] %> </td>
+            <td class="text-center hidden"> <%= @scores[10] %> </td>
             <td> <%= @team_odds[42] %> (<%= @team_odds[43] %>%) </td>
           </tr>
           <tr>
             <td> <%= @team_odds[44] %> (<%= @team_odds[45] %>%) </td>
-            <td class="text-center"> <%= @scores[11] %> </td>
+            <td class="text-center hidden"> <%= @scores[11] %> </td>
             <td> <%= @team_odds[46] %> (<%= @team_odds[47] %>%) </td>
           </tr>
           <tr>
             <td> <%= @team_odds[48] %> (<%= @team_odds[49] %>%) </td>
-            <td class="text-center"> <%= @scores[12] %> </td>
+            <td class="text-center hidden"> <%= @scores[12] %> </td>
             <td> <%= @team_odds[50] %> (<%= @team_odds[51] %>%) </td>
           </tr>
           <tr>
             <td> <%= @team_odds[52] %> (<%= @team_odds[53] %>%) </td>
-            <td class="text-center"> <%= @scores[13] %> </td>
+            <td class="text-center hidden"> <%= @scores[13] %> </td>
             <td> <%= @team_odds[54] %> (<%= @team_odds[55] %>%) </td>
           </tr>
         </tbody>
       </thead>
     </table>
-    <%#console%>
+
+    <script>
+      const button = document.getElementById('gerar');
+
+      const placares = document.querySelectorAll('.hidden');
+
+      button.addEventListener('click', (event) => {
+        placares.forEach((placar) => {
+        placar.classList.remove('hidden');
+        });
+        console.log("Gerar Palpites foi clicado!");
+      });
+    </script>
+
 </div>

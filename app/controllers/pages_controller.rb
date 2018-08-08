@@ -131,8 +131,8 @@ class PagesController < ApplicationController
       end
     append_names(@times) #home retorna array com confrontos em sequencia. array[0] joga contra array[1] e etc.
     end
-    joined_stats_hash
     each_team_odd
     generate_score
   end
+
 end
