@@ -3,6 +3,25 @@ require 'httparty'
 
 class PagesController < ApplicationController
 
+  def home #busca os jogos do próximo premio da loteria esportiva.
+    url = "http://loterias.caixa.gov.br/wps/portal/loterias/landing/loteca/programacao"
+
+    html_file = HTTParty.get(url)
+    html_doc = Nokogiri::HTML(html_file)
+    @times = []
+    @jogos = html_doc.css('tbody').text
+    @jogos.split.each do |jogo|
+      if jogo.length > 2 && jogo != "Sábado" && jogo != "Domingo"
+        if jogo.include? "/"
+          @times << jogo
+        end
+      end
+    append_names(@times) #home retorna array com confrontos em sequencia. array[0] joga contra array[1] e etc.
+    end
+    each_team_odd
+    generate_score
+  end
+
   def append_names(times_array) #adiciona os nomes de alguns times que tem nomes compostos.
     times_array.each do |time|
       if time == "PAULO/SP"
@@ -64,6 +83,7 @@ class PagesController < ApplicationController
     end
     @all_matches
   end
+
   def apply_odds(team) #retorna o percentual de chances de vitória conforme o time.
     odds = joined_stats_hash
     @percentage = ""
@@ -85,14 +105,19 @@ class PagesController < ApplicationController
     @team_odds
   end
 
-  def generate_score #gera placar conforme as probabilidades de vitória de cada time
+  def loteca_games #separa do array all_matches apenas as probabilidades em ordem para exibir na view.
     all_odds = each_team_odd
-    games = []
+    @odds_array = []
     all_odds.each do |odds|
       if odds.length <= 5
-        games << odds
+        @odds_array << odds
       end
     end
+    @odds_array
+  end
+
+  def generate_score #gera placar conforme as probabilidades de vitória de cada time
+    games = loteca_games
     @scores = []
     i = 0
     n = 1
@@ -105,8 +130,14 @@ class PagesController < ApplicationController
       end
       if games[i].to_f == 0.0 && games[n].to_f == 0.0
         @scores << "- x -"
+      elsif games[i].to_f > 2 * games[n].to_f
+        @scores << "2 x 0"
+      elsif games[i].to_f > games[n].to_f && games[i].to_f < 1.05 * games[n].to_f
+        @scores << "1 x 1"
       elsif games[i].to_f > games[n].to_f
         @scores << "1 x 0"
+      elsif games[i].to_f * 2 < games[n].to_f
+        @scores << "0 x 2"
       elsif games[i].to_f < games[n].to_f
         @scores << "0 x 1"
       end
@@ -116,23 +147,5 @@ class PagesController < ApplicationController
     @scores
   end
 
-  def home #busca os jogos do próximo premio da loteria esportiva.
-    url = "http://loterias.caixa.gov.br/wps/portal/loterias/landing/loteca/programacao"
-
-    html_file = HTTParty.get(url)
-    html_doc = Nokogiri::HTML(html_file)
-    @times = []
-    @jogos = html_doc.css('tbody').text
-    @jogos.split.each do |jogo|
-      if jogo.length > 2 && jogo != "Sábado" && jogo != "Domingo"
-        if jogo.include? "/"
-          @times << jogo
-        end
-      end
-    append_names(@times) #home retorna array com confrontos em sequencia. array[0] joga contra array[1] e etc.
-    end
-    each_team_odd
-    generate_score
-  end
 
 end
