@@ -25,7 +25,7 @@ class PagesController < ApplicationController
   def append_names(times_array) #adiciona os nomes de alguns times que tem nomes compostos.
     times_array.each do |time|
       if time == "PAULO/SP"
-        time.prepend("SÂO ")
+        time.prepend "SÃO "
       elsif time == "GAMA/RJ"
         time.prepend("VASCO DA ")
       elsif time == "PRETA/SP"
@@ -34,6 +34,10 @@ class PagesController < ApplicationController
         time.prepend("SAMPAIO ")
       elsif time == "BRASIL/RS"
         time.replace "BRASIL DE PELOTAS/RS"
+      elsif time == "BENTO/SP"
+        time.prepend "SÃO "
+      elsif time == "ESPORTE/MG"
+        time.prepend "BOA "
       end
     end
     return times_array
