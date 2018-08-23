@@ -1,6 +1,7 @@
 <div class="container">
   <h2 class="text-center">Jogos Loteria Esportiva</h2>
    <a href="#" id="gerar"> Gerar Palpites </a>
+      <i id="my-btn" class="fa fa-refresh" style="font-size:15px"></i>
     <table class="table">
       <thead>
         <tbody class="tbody">
@@ -77,18 +78,4 @@
         </tbody>
       </thead>
     </table>
-
-    <script>
-      const button = document.getElementById('gerar');
-
-      const placares = document.querySelectorAll('.hidden');
-
-      button.addEventListener('click', (event) => {
-        placares.forEach((placar) => {
-        placar.classList.remove('hidden');
-        });
-        console.log("Gerar Palpites foi clicado!");
-      });
-    </script>
-
 </div>

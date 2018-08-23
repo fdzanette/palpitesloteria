@@ -6,5 +6,22 @@
 //
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
+function sleep_s(secs) {
+  secs = (+new Date) + secs * 1000;
+  while ((+new Date) < secs);
+}
 
-console.log('Hello World from Webpacker')
+const button = document.getElementById('gerar');
+const refresh = document.getElementById('my-btn');
+
+const placares = document.querySelectorAll('.hidden');
+
+button.addEventListener('click', (event) => {
+  refresh.classList.add('fa-spin');
+  placares.forEach((placar) => {
+  placar.classList.toggle('hidden');
+  });
+});
+
+
+
