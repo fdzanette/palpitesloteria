@@ -38,6 +38,8 @@ class PagesController < ApplicationController
         time.prepend "SÃO "
       elsif time == "ESPORTE/MG"
         time.prepend "BOA "
+      elsif time == "NOVA/MG" || time == "NOVA/GO"
+        time.prepend "VILA "
       end
     end
     return times_array
