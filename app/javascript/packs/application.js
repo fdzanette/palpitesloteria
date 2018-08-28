@@ -13,7 +13,6 @@
 // }
 
 const button = document.getElementById('gerar');
-const refresh = document.getElementById('my-btn');
 const teams = document.querySelectorAll('.team');
 
 const placares = document.querySelectorAll('.hidden');
@@ -22,19 +21,14 @@ button.addEventListener('click', (event) => {
   let i = 0;
   let j = 1;
   let p = 0;
-  refresh.classList.add('fa-spin');
   placares.forEach((placar) => {
   placar.classList.toggle('hidden');
-//    console.log(placares[p].innerHTML);
     if (placares[p].innerHTML === " 1 x 0 " || placares[p].innerHTML === " 2 x 0 ") {
       teams[i].classList.add('winner-score');
       teams[j].classList.add('loser-score');
     } else if (placares[p].innerHTML === " 0 x 1 " || placares[p].innerHTML === " 0 x 2 ") {
       teams[i].classList.add('loser-score');
       teams[j].classList.add('winner-score');
-    } else if (placares[p].innerHTML === " - x - ") {
-      teams[i].classList.add('draw-score');
-      teams[j].classList.add('draw-score');
     } else {
       teams[i].classList.add('draw-score');
       teams[j].classList.add('draw-score');

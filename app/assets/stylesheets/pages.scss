@@ -1,6 +1,9 @@
 // Place all the styles related to the pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.table {
+  margin-top: 4px;
+}
 .tbody {
   border: 1px solid;
 }
@@ -21,4 +24,16 @@
   background-color: gray;
 }
 
+#gerar {
+  text-decoration: none;
+  background-color: blue;
+  border: 1px solid white;
+  border-radius: 30px;
+  font-size: 16px;
+  padding: 6px;
+  color: white;
+  &.hover {
+    text-decoration: none;
+  }
+}
 
