@@ -21,17 +21,18 @@ const placares = document.querySelectorAll('.hidden');
 button.addEventListener('click', (event) => {
   let i = 0;
   let j = 1;
+  let p = 0;
   refresh.classList.add('fa-spin');
   placares.forEach((placar) => {
   placar.classList.toggle('hidden');
-
-    if (placar.text === "1 x 0" || placar.text === "2 x 0") {
+//    console.log(placares[p].innerHTML);
+    if (placares[p].innerHTML === " 1 x 0 " || placares[p].innerHTML === " 2 x 0 ") {
       teams[i].classList.add('winner-score');
       teams[j].classList.add('loser-score');
-    } else if (placar.text === "0 x 1" || placar.text === "0 x 2") {
+    } else if (placares[p].innerHTML === " 0 x 1 " || placares[p].innerHTML === " 0 x 2 ") {
       teams[i].classList.add('loser-score');
       teams[j].classList.add('winner-score');
-    } else if (placar.text === "- x -") {
+    } else if (placares[p].innerHTML === " - x - ") {
       teams[i].classList.add('draw-score');
       teams[j].classList.add('draw-score');
     } else {
@@ -40,6 +41,7 @@ button.addEventListener('click', (event) => {
     };
     i += 2;
     j += 2;
+    p += 1;
   });
 });
 
