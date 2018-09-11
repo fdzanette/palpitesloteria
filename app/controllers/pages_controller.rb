@@ -4,14 +4,14 @@ require 'httparty'
 class PagesController < ApplicationController
 
   def home #busca os jogos do próximo premio da loteria esportiva.
-    url = "http://loterias.caixa.gov.br/wps/portal/loterias/landing/loteca/programacao"
+    url = "https://www.guiadaloteria.com.br/programacao-da-loteca.html"
 
     html_file = HTTParty.get(url)
     html_doc = Nokogiri::HTML(html_file)
     @times = []
     @jogos = html_doc.css('tbody').text
     @jogos.split.each do |jogo|
-      if jogo.length > 2 && jogo != "Sábado" && jogo != "Domingo"
+      if jogo.length > 2
         if jogo.include? "/"
           @times << jogo
         end
@@ -20,6 +20,7 @@ class PagesController < ApplicationController
     end
     each_team_odd
     generate_score
+    #raise
   end
 
   def append_names(times_array) #adiciona os nomes de alguns times que tem nomes compostos.
@@ -129,26 +130,23 @@ class PagesController < ApplicationController
     n = 1
     games.each do |game|
       #byebug
-      if game.length > 5
+      while i <= 26
+        if games[i].to_f == 0.0 && games[n].to_f == 0.0
+          @scores << "- x -"
+        elsif games[i].to_f > 2 * games[n].to_f
+          @scores << "2 x 0"
+        elsif games[i].to_f > games[n].to_f && games[i].to_f < 1.05 * games[n].to_f
+          @scores << "1 x 1"
+        elsif games[i].to_f > games[n].to_f
+          @scores << "1 x 0"
+        elsif games[i].to_f * 2 < games[n].to_f
+          @scores << "0 x 2"
+        elsif games[i].to_f < games[n].to_f
+          @scores << "0 x 1"
+        end
         i += 2
         n += 2
-        next
       end
-      if games[i].to_f == 0.0 && games[n].to_f == 0.0
-        @scores << "- x -"
-      elsif games[i].to_f > 2 * games[n].to_f
-        @scores << "2 x 0"
-      elsif games[i].to_f > games[n].to_f && games[i].to_f < 1.05 * games[n].to_f
-        @scores << "1 x 1"
-      elsif games[i].to_f > games[n].to_f
-        @scores << "1 x 0"
-      elsif games[i].to_f * 2 < games[n].to_f
-        @scores << "0 x 2"
-      elsif games[i].to_f < games[n].to_f
-        @scores << "0 x 1"
-      end
-      i += 2
-      n += 2
     end
     @scores
   end
