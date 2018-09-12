@@ -3,7 +3,7 @@ require 'httparty'
 
 class PagesController < ApplicationController
 
-  def home #busca os jogos do próximo premio da loteria esportiva.
+  def fetch_games #busca os jogos do próximo premio da loteria esportiva.
     url = "https://www.guiadaloteria.com.br/programacao-da-loteca.html"
 
     html_file = HTTParty.get(url)
@@ -18,9 +18,6 @@ class PagesController < ApplicationController
       end
     append_names(@times) #home retorna array com confrontos em sequencia. array[0] joga contra array[1] e etc.
     end
-    each_team_odd
-    generate_score
-    #raise
   end
 
   def append_names(times_array) #adiciona os nomes de alguns times que tem nomes compostos.
@@ -151,5 +148,10 @@ class PagesController < ApplicationController
     @scores
   end
 
+  def home
+    fetch_games
+    each_team_odd
+    generate_score
+  end
 
 end
