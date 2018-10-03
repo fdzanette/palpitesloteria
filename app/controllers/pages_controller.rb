@@ -148,10 +148,28 @@ class PagesController < ApplicationController
     @scores
   end
 
+  def eliminate_duplicate_scores
+    @new_scores = []
+    @refined_scores = generate_score
+    @refined_scores.each_with_index do |score, i|
+      @new_scores[i] = score
+      if @new_scores.count(score.to_s) > 3
+        if score == "1 x 0"
+          @new_scores[i] = "2 x 1"
+        elsif score == "0 x 1"
+          @new_scores[i] = "1 x 2"
+        elsif score == "2 x 0"
+          @new_scores[i] = "3 x 1"
+        end
+      end
+    end
+    @new_scores
+  end
+
   def home
     fetch_games
     each_team_odd
-    generate_score
+    eliminate_duplicate_scores
   end
 
 end
