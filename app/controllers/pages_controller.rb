@@ -126,13 +126,12 @@ class PagesController < ApplicationController
     i = 0
     n = 1
     games.each do |game|
-      #byebug
       while i <= 26
         if games[i].to_f == 0.0 && games[n].to_f == 0.0
           @scores << "- x -"
         elsif games[i].to_f > 2 * games[n].to_f
           @scores << "2 x 0"
-        elsif games[i].to_f > games[n].to_f && games[i].to_f < 1.05 * games[n].to_f
+        elsif games[i].to_f > games[n].to_f && games[i].to_f < 1.05 * games[n].to_f || games[n].to_f > games[i].to_f && games[n].to_f < 1.05 * games[i].to_f
           @scores << "1 x 1"
         elsif games[i].to_f > games[n].to_f
           @scores << "1 x 0"
@@ -148,18 +147,28 @@ class PagesController < ApplicationController
     @scores
   end
 
-  def eliminate_duplicate_scores
+  def eliminate_duplicate_scores #muda os placares que estão repetidos + de 3 vezes.
     @new_scores = []
     @refined_scores = generate_score
     @refined_scores.each_with_index do |score, i|
       @new_scores[i] = score
-      if @new_scores.count(score.to_s) > 3
-        if score == "1 x 0"
+      if @new_scores.count("1 x 0") + @new_scores.count("0 x 1")  > 3
+        if @new_scores[i] == "1 x 0"
           @new_scores[i] = "2 x 1"
-        elsif score == "0 x 1"
+          if @new_scores.count("2 x 1") + @new_scores.count("1 x 2")  > 3
+            @new_scores[i] = "3 x 2"
+          end
+        elsif @new_scores[i] == "0 x 1"
           @new_scores[i] = "1 x 2"
-        elsif score == "2 x 0"
+          if @new_scores.count("2 x 1") + @new_scores.count("1 x 2")  > 3
+            @new_scores[i] = "2 x 3"
+          end
+        end
+      elsif @new_scores.count("2 x 0") + @new_scores.count("0 x 2")  > 3
+        if @new_scores[i] == "2 x 0"
           @new_scores[i] = "3 x 1"
+        elsif @new_scores[i] == "0 x 2"
+          @new_scores[i] = "1 x 3"
         end
       end
     end

@@ -23,10 +23,10 @@ button.addEventListener('click', (event) => {
   let p = 0;
   placares.forEach((placar) => {
   placar.classList.toggle('hidden');
-    if (placares[p].innerHTML === " 1 x 0 " || placares[p].innerHTML === " 2 x 0 " || placares[p].innerHTML === " 2 x 1 ") {
+    if (placares[p].innerHTML === " 1 x 0 " || placares[p].innerHTML === " 2 x 0 " || placares[p].innerHTML === " 2 x 1 " || placares[p].innerHTML === " 3 x 1 " || placares[p].innerHTML === " 3 x 2 ") {
       teams[i].classList.add('winner-score');
       teams[j].classList.add('loser-score');
-    } else if (placares[p].innerHTML === " 0 x 1 " || placares[p].innerHTML === " 0 x 2 " || placares[p].innerHTML === " 1 x 2 ") {
+    } else if (placares[p].innerHTML === " 0 x 1 " || placares[p].innerHTML === " 0 x 2 " || placares[p].innerHTML === " 1 x 2 " || placares[p].innerHTML === " 1 x 3 " || placares[p].innerHTML === " 2 x 3 ") {
       teams[i].classList.add('loser-score');
       teams[j].classList.add('winner-score');
     } else {
